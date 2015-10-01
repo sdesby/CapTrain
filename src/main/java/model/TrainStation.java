@@ -1,3 +1,5 @@
+package model;
+
 public class TrainStation {
 
    private String id;
@@ -36,7 +38,7 @@ public class TrainStation {
    @Override
    public String toString() {
       return String.format(
-            "TrainStation[id=%s, name='%s', slug='%s', coordinates.longitude='%s', coordinates.latitude='%s', country='%s', info='%s']",
+            "model.TrainStation[id=%s, name='%s', slug='%s', coordinates.longitude='%s', coordinates.latitude='%s', country='%s', info='%s']",
             id, name, slug, longitude, latitude, country, info);
    }
 
