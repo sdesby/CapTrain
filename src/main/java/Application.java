@@ -1,13 +1,12 @@
 import model.TrainStation;
-import service.OperationsProvider;
+import service.TrainStationService;
 
 import java.util.List;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
 public class Application {
 
    public static final String TRAIN_STATION_COLLECTION = "train_stations";
+   private TrainStationService trainStationService;
 
    private static double distanceTo2(double userLatitude, double userLongitude, double trainStationLatitude, double trainStationLongitude) {
       //source = http://www.movable-type.co.uk/scripts/latlong.html
@@ -31,9 +30,10 @@ public class Application {
    }
 
    public static void main(String[] args) {
-      OperationsProvider operationsProvider = new OperationsProvider();
-      List<TrainStation> trainStation = operationsProvider.get().find(new Query(Criteria.where("name").is("Vire")), TrainStation.class, TRAIN_STATION_COLLECTION);
-      List<TrainStation> trainStation2 = operationsProvider.get().find(new Query(Criteria.where("name").is("Périgueux")), TrainStation.class, TRAIN_STATION_COLLECTION);
+      TrainStationService trainStationService = new TrainStationService();
+
+      List<TrainStation> trainStation = trainStationService.findStationByName("Vire");
+      List<TrainStation> trainStation2 = trainStationService.findStationByName("Dole Ville");
 
       double distance = distanceTo2(Double.parseDouble(trainStation.get(0).getLatitude()), Double.parseDouble(trainStation.get(0).getLongitude()),
             Double.parseDouble(trainStation2.get(0).getLatitude()), Double.parseDouble(trainStation2.get(0).getLongitude()));
@@ -44,21 +44,6 @@ public class Application {
       System.out.println("Gare de " + trainStation2.get(0).getName()
             + " qui a pour latitude : " + trainStation2.get(0).getLatitude()
             + " et pour longitude : " + trainStation2.get(0).getLongitude());
-      System.out.println("Distance entre ces deux gares : " + distance + "km");
-
-
-      List<TrainStation> trainStation3 = operationsProvider.get().find(new Query(Criteria.where("name").is("Bordeaux")), TrainStation.class, TRAIN_STATION_COLLECTION);
-
-      double distance2 = distanceTo2(Double.parseDouble(trainStation3.get(0).getLatitude()), Double.parseDouble(trainStation3.get(0).getLongitude()),
-            Double.parseDouble(trainStation2.get(0).getLatitude()), Double.parseDouble(trainStation2.get(0).getLongitude()));
-
-      System.out.println("Gare de " + trainStation3.get(0).getName()
-            + " qui a pour latitude : " + trainStation3.get(0).getLatitude()
-            + " et pour longitude : " + trainStation.get(0).getLongitude());
-      System.out.println("Gare de " + trainStation2.get(0).getName()
-            + " qui a pour latitude : " + trainStation2.get(0).getLatitude()
-            + " et pour longitude : " + trainStation2.get(0).getLongitude());
-      System.out.println("Distance entre ces deux gares : " + distance2 + "km");
-
+      System.out.println("Distance à vol d'oiseau entre ces deux gares : " + distance + "km");
    }
 }

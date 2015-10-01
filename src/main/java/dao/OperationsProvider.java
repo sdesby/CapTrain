@@ -1,4 +1,4 @@
-package service;
+package dao;
 
 import java.net.UnknownHostException;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -25,7 +25,7 @@ public class OperationsProvider {
 
    }
 
-   public MongoOperations get() {
+   public MongoOperations getMongoOps() {
       return mongoOps;
    }
 }
