@@ -35,5 +35,12 @@ public class Application {
             + " qui a pour latitude : " + trainStation2.get(0).getLatitude()
             + " et pour longitude : " + trainStation2.get(0).getLongitude());
       System.out.println("Distance à vol d'oiseau entre ces deux gares : " + distance + "km");
+
+      System.out.println("#####################################");
+
+      Coordinates userCoordinates = new Coordinates(47.878727, -3.920496);
+      TrainStation nearestTrainStation = trainStationService.findNearestStationOf(userCoordinates);
+
+      System.out.println("Nom de la gare la plus proche :" + nearestTrainStation.getName());
    }
 }

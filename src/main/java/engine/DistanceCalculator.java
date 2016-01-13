@@ -7,9 +7,29 @@ import model.Coordinates;
  */
 public class DistanceCalculator {
 
+    public Coordinates getCoordinates1() {
+        return coordinates1;
+    }
+
+    public void setCoordinates1(Coordinates coordinates1) {
+        this.coordinates1 = coordinates1;
+    }
+
+    public Coordinates getCoordinates2() {
+        return coordinates2;
+    }
+
+    public void setCoordinates2(Coordinates coordinates2) {
+        this.coordinates2 = coordinates2;
+    }
+
     Coordinates coordinates1;
     Coordinates coordinates2;
 
+    public DistanceCalculator(){
+        this.coordinates1 = new Coordinates();
+        this.coordinates2 = new Coordinates();
+    }
     public DistanceCalculator(Coordinates coordinates1, Coordinates coordinates2)
     {
         this.coordinates1 = coordinates1;
