@@ -41,6 +41,6 @@ public class Application {
       Coordinates userCoordinates = new Coordinates(48.619948, 3.754868);
       TrainStation nearestTrainStation = trainStationService.findNearestStationOf(userCoordinates);
 
-      System.out.println("Nom de la gare la plus proche :" + nearestTrainStation.getName());
+      System.out.println("Nom de la gare la plus proche : " + nearestTrainStation.getId() + " " + nearestTrainStation.getName());
    }
 }

@@ -5,6 +5,7 @@ import engine.DistanceCalculator;
 import model.Coordinates;
 import model.TrainStation;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -24,7 +25,16 @@ public class TrainStationService {
    }
 
    public List<TrainStation> findStationByName(String stationName){
-      return operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStation.class, TRAIN_STATION_COLLECTION);
+      List<TrainStation> trainStations = new ArrayList<TrainStation>();
+      try {
+         trainStations = operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStation.class, TRAIN_STATION_COLLECTION);
+      }
+      catch(Exception e)
+      {
+         System.out.println("Errror : " + e.toString());
+         return null;
+      }
+      return trainStations;
    }
 
    public TrainStation findNearestStationOf(Coordinates userCoordinates) {
@@ -48,7 +58,7 @@ public class TrainStationService {
          distanceCalculator.setCoordinates2(stationCoordinates);
          currentDistance = distanceCalculator.getDistance();
 
-         if(currentDistance < shorterDistance) {
+         if(currentDistance < shorterDistance && currentStation.getIs_suggestable().equals("t")) {
             shorterDistance = currentDistance;
             trainStation = currentStation;
          }

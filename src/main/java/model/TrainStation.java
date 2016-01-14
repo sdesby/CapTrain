@@ -12,10 +12,17 @@ public class TrainStation {
    private String latitude;
    private String country;
    private String info;
+
+   public String getIs_suggestable() {
+      return is_suggestable;
+   }
+
+   private String is_suggestable;
+
    public TrainStation() {
    }
 
-   public TrainStation(String id, String name, String slug, String longitude, String latitude, String country, String info) {
+   public TrainStation(String id, String name, String slug, String longitude, String latitude, String country, String info, String is_suggestable) {
       this.id = id;
       this.name = name;
       this.slug = slug;
@@ -23,6 +30,7 @@ public class TrainStation {
       this.latitude = latitude;
       this.country = country;
       this.info = info;
+      this.is_suggestable = is_suggestable;
    }
 
    public TrainStation(TrainStation trainStation) {
@@ -39,7 +47,7 @@ public class TrainStation {
    public String toString() {
       return String.format(
             "model.TrainStation[id=%s, name='%s', slug='%s', coordinates.longitude='%s', coordinates.latitude='%s', country='%s', info='%s']",
-            id, name, slug, longitude, latitude, country, info);
+            id, name, slug, longitude, latitude, country, info, is_suggestable);
    }
 
    public String getId() {
