@@ -7,41 +7,7 @@ import model.Coordinates;
  */
 public class DistanceCalculator {
 
-    public Coordinates getCoordinates1() {
-        return coordinates1;
-    }
-
-    public void setCoordinates1(Coordinates coordinates1) {
-        this.coordinates1 = coordinates1;
-    }
-
-    public Coordinates getCoordinates2() {
-        return coordinates2;
-    }
-
-    public void setCoordinates2(Coordinates coordinates2) {
-        this.coordinates2 = coordinates2;
-    }
-
-    Coordinates coordinates1;
-    Coordinates coordinates2;
-
-    public DistanceCalculator(){
-        this.coordinates1 = new Coordinates();
-        this.coordinates2 = new Coordinates();
-    }
-    public DistanceCalculator(Coordinates coordinates1, Coordinates coordinates2)
-    {
-        this.coordinates1 = coordinates1;
-        this.coordinates2 = coordinates2;
-    }
-
-    public DistanceCalculator(double latitude1, double longitude1, double latitude2, double longitude2) {
-        coordinates1 = new Coordinates(latitude1, longitude1);
-        coordinates2 = new Coordinates(latitude2, longitude2);
-    }
-
-    public double getDistance() {
+        public static double getDistance(Coordinates coordinates1, Coordinates coordinates2) {
         //source = http://www.movable-type.co.uk/scripts/latlong.html
         double earthRadius = 6371000.0;
 

@@ -1,53 +1,59 @@
 package model;
 
+import dao.TrainStationPOJO;
+
 public class TrainStation {
 
-   private String id;
-
-   private String name;
-   private String slug;
-
-   private String longitude;
-
-   private String latitude;
-   private String country;
-   private String info;
-
-   public String getIs_suggestable() {
-      return is_suggestable;
-   }
-
-   private String is_suggestable;
+   private final String id;
+   private final String name;
+   private final Coordinates coordinates;
+   private final String slug;
+   private final String country;
+   private final String info;
+   private final boolean isSuggestable;
 
    public TrainStation() {
+      this.id = "";
+      this.name = "";
+      this.slug = "";
+      this.coordinates = new Coordinates(0.0, 0.0);
+      this.country = "";
+      this.info = "";
+      this.isSuggestable = false;
    }
 
-   public TrainStation(String id, String name, String slug, String longitude, String latitude, String country, String info, String is_suggestable) {
+   public TrainStation(TrainStationPOJO trainStationPOJO) {
+      this.id = trainStationPOJO.getId();
+      this.name = trainStationPOJO.getName();
+      this.coordinates = new Coordinates(trainStationPOJO.getLatitude(), trainStationPOJO.getLongitude());
+      this.slug = trainStationPOJO.getSlug();
+      this.country = trainStationPOJO.getCountry();
+      this.info = trainStationPOJO.getInfo();
+
+      if (trainStationPOJO.getIs_suggestable().equals("t")) {
+         this.isSuggestable = true;
+      } else if (trainStationPOJO.getIs_suggestable().equals("f")) {
+         this.isSuggestable = false;
+      } else {
+         this.isSuggestable = false;
+      }
+   }
+
+   public TrainStation(String id, String name, String latitude, String longitude, String slug, String country, String info, String isSuggestable) {
       this.id = id;
       this.name = name;
       this.slug = slug;
-      this.longitude = longitude;
-      this.latitude = latitude;
+      this.coordinates = new Coordinates(latitude, longitude);
       this.country = country;
       this.info = info;
-      this.is_suggestable = is_suggestable;
-   }
 
-   public TrainStation(TrainStation trainStation) {
-      this.longitude = trainStation.getLongitude();
-      this.latitude = trainStation.getLatitude();
-      this.id = trainStation.getId();
-      this.name = trainStation.getName();
-      this.slug = trainStation.getSlug();
-      this.country = trainStation.getCountry();
-      this.info = trainStation.getInfo();
-   }
-
-   @Override
-   public String toString() {
-      return String.format(
-            "model.TrainStation[id=%s, name='%s', slug='%s', coordinates.longitude='%s', coordinates.latitude='%s', country='%s', info='%s']",
-            id, name, slug, longitude, latitude, country, info, is_suggestable);
+      if (isSuggestable.equals("t")) {
+         this.isSuggestable = true;
+      } else if (isSuggestable.equals("f")) {
+         this.isSuggestable = false;
+      } else {
+         this.isSuggestable = false;
+      }
    }
 
    public String getId() {
@@ -56,6 +62,10 @@ public class TrainStation {
 
    public String getName() {
       return name;
+   }
+
+   public Coordinates getCoordinates() {
+      return coordinates;
    }
 
    public String getSlug() {
@@ -70,11 +80,14 @@ public class TrainStation {
       return info;
    }
 
-   public String getLongitude() {
-      return longitude;
+   public boolean isSuggestable() {
+      return isSuggestable;
    }
 
-   public String getLatitude() {
-      return latitude;
+   @Override
+   public String toString() {
+      return String.format(
+            "model.TrainStation[id=%s, name='%s', slug='%s', coordinates.latitude='%s', coordinates.longitude='%s', country='%s', info='%s', isSuggestable='%s']",
+            id, name, slug, coordinates.getLatitude(), coordinates.getLongitude(), country, info, isSuggestable);
    }
 }

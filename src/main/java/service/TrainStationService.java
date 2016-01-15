@@ -3,6 +3,7 @@ package service;
 import dao.OperationsProvider;
 import engine.DistanceCalculator;
 import model.Coordinates;
+import dao.TrainStationPOJO;
 import model.TrainStation;
 
 import java.util.ArrayList;
@@ -21,17 +22,28 @@ public class TrainStationService {
    }
 
    public List<TrainStation> findAll(){
-      return operationsProvider.getMongoOps().findAll(TrainStation.class, TRAIN_STATION_COLLECTION);
+      List<TrainStationPOJO> trainStationPOJOs = operationsProvider.getMongoOps().findAll(TrainStationPOJO.class, TRAIN_STATION_COLLECTION);
+
+      List<TrainStation> trainStations = new ArrayList<TrainStation>();
+      trainStationPOJOs.forEach( i -> {
+               trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
+            }
+      );
+      return trainStations;
    }
 
    public List<TrainStation> findStationByName(String stationName){
       List<TrainStation> trainStations = new ArrayList<TrainStation>();
       try {
-         trainStations = operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStation.class, TRAIN_STATION_COLLECTION);
+         List<TrainStationPOJO> trainStationPOJOs = operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStationPOJO.class, TRAIN_STATION_COLLECTION);
+         trainStationPOJOs.forEach( i -> {
+                  trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
+               }
+         );
       }
       catch(Exception e)
       {
-         System.out.println("Errror : " + e.toString());
+         System.out.println("Error : " + e.toString());
          return null;
       }
       return trainStations;
@@ -39,26 +51,20 @@ public class TrainStationService {
 
    public TrainStation findNearestStationOf(Coordinates userCoordinates) {
       TrainStation trainStation = new TrainStation();
+      TrainStation currentStation;
+
       double shorterDistance = 999999999;
       double currentDistance;
 
       List<TrainStation> allStations = findAll();
       Iterator<TrainStation> i = allStations.iterator();
 
-      Coordinates stationCoordinates = new Coordinates();
-      TrainStation currentStation;
-      DistanceCalculator distanceCalculator = new DistanceCalculator();
-      distanceCalculator.setCoordinates1(userCoordinates);
 
       while(i.hasNext()) {
          currentStation = i.next();
-         stationCoordinates.setLatitude(Double.parseDouble(currentStation.getLatitude()));
-         stationCoordinates.setLongitude(Double.parseDouble(currentStation.getLongitude()));
+         currentDistance = DistanceCalculator.getDistance(userCoordinates, currentStation.getCoordinates());
 
-         distanceCalculator.setCoordinates2(stationCoordinates);
-         currentDistance = distanceCalculator.getDistance();
-
-         if(currentDistance < shorterDistance && currentStation.getIs_suggestable().equals("t")) {
+         if(currentDistance < shorterDistance && currentStation.isSuggestable()) {
             shorterDistance = currentDistance;
             trainStation = currentStation;
          }
