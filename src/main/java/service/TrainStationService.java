@@ -21,28 +21,26 @@ public class TrainStationService {
       operationsProvider = new OperationsProvider();
    }
 
-   public List<TrainStation> findAll(){
+   public List<TrainStation> findAll() {
       List<TrainStationPOJO> trainStationPOJOs = operationsProvider.getMongoOps().findAll(TrainStationPOJO.class, TRAIN_STATION_COLLECTION);
 
       List<TrainStation> trainStations = new ArrayList<TrainStation>();
-      trainStationPOJOs.forEach( i -> {
+      trainStationPOJOs.forEach(i -> {
                trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
             }
       );
       return trainStations;
    }
 
-   public List<TrainStation> findStationByName(String stationName){
+   public List<TrainStation> findStationByName(String stationName) {
       List<TrainStation> trainStations = new ArrayList<TrainStation>();
       try {
          List<TrainStationPOJO> trainStationPOJOs = operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStationPOJO.class, TRAIN_STATION_COLLECTION);
-         trainStationPOJOs.forEach( i -> {
+         trainStationPOJOs.forEach(i -> {
                   trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
                }
          );
-      }
-      catch(Exception e)
-      {
+      } catch (Exception e) {
          System.out.println("Error : " + e.toString());
          return null;
       }
@@ -60,16 +58,28 @@ public class TrainStationService {
       Iterator<TrainStation> i = allStations.iterator();
 
 
-      while(i.hasNext()) {
+      while (i.hasNext()) {
          currentStation = i.next();
          currentDistance = DistanceCalculator.getDistance(userCoordinates, currentStation.getCoordinates());
 
-         if(currentDistance < shorterDistance && currentStation.isSuggestable()) {
+         if (currentDistance < shorterDistance && currentStation.isSuggestable()) {
             shorterDistance = currentDistance;
             trainStation = currentStation;
          }
       }
       System.out.println("Distance de votre position à cette gare : " + shorterDistance);
       return trainStation;
+   }
+
+   private double findTheShortest(double[] shorterDistance) {
+      int indice = 0;
+      double current;
+      current = shorterDistance[0];
+      for (int i = 1; i < shorterDistance.length - 1; i++) {
+         if (current > shorterDistance[i]) {
+            indice = i + 1;
+         }
+      }
+      return shorterDistance[indice];
    }
 }
