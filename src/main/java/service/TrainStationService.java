@@ -1,9 +1,9 @@
 package service;
 
 import dao.OperationsProvider;
+import dao.TrainStationPOJO;
 import engine.DistanceCalculator;
 import model.Coordinates;
-import dao.TrainStationPOJO;
 import model.TrainStation;
 
 import java.util.ArrayList;

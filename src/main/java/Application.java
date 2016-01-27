@@ -3,6 +3,7 @@ import model.Coordinates;
 import model.TrainStation;
 import service.TrainStationService;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -11,26 +12,30 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 public class Application {
 
-   public static final String TRAIN_STATION_COLLECTION = "train_stations";
    public static final String BASE_URI = "http://localhost:8080/restserver";
 
-   private TrainStationService trainStationService;
-
    public static HttpServer startServer() {
-      final ResourceConfig resourceConfig = new ResourceConfig().packages("restServer");
+      final ResourceConfig resourceConfig = new ResourceConfig().packages("rest");
       return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), resourceConfig);
    }
 
    public static void main(String[] args) {
       TrainStationService trainStationService = new TrainStationService();
 
-      findDistanceBetweenStations(trainStationService);
-      findNearestStationFrom(trainStationService);
+//      findDistanceBetweenStations(trainStationService);
+//      findNearestStationFrom(trainStationService);
 
       //Start REST API Server
       final HttpServer httpServer = startServer();
       System.out.println(String.format("Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-//      httpServer.stop();
+      try {
+         System.in.read();
+         httpServer.stop();
+      }
+      catch(IOException io) {
+         System.out.println("IOException");
+      }
+
    }
 
    private static void findNearestStationFrom(TrainStationService trainStationService) {
