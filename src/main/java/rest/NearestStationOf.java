@@ -33,7 +33,9 @@ public class NearestStationOf {
 
       return Response
             .status(200)
-            .entity("Nom de la gare la plus proche : " + nearestTrainStation.getId() + " " + nearestTrainStation.getName())
+            .entity("Nom de la gare la plus proche : " + nearestTrainStation.getName() + "(" + nearestTrainStation.getId() + ")\n" +
+                  "Coordonnées GPS de la Gare : Latitude = " + nearestTrainStation.getCoordinates().getLatitude()
+                  + "  Longitude = " + nearestTrainStation.getCoordinates().getLongitude())
             .build();
    }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+	<script type="text/javascript">
+		function onSubmit(latitude, longitude)
+		{
+			var latitude = document.getElementById('lat').value;
+			var longitude = document.getElementById('lgt').value;
+			var url = "http://localhost:8080/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude;
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<form>
+		Latitude :
+		<input type="text" name="latitude"></input></br>
+		Longitude :
+		<input type="text" id="lat" name="longitude"></br>
+		<input type="submit" id="lgt" value="submit" onSubmit="javascript:onSubmit()">
+	</form>
+</body>
+</html>
+s

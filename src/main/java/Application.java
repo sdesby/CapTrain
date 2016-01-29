@@ -20,7 +20,7 @@ public class Application {
    }
 
    public static void main(String[] args) {
-      TrainStationService trainStationService = new TrainStationService();
+//      TrainStationService trainStationService = new TrainStationService();
 
 //      findDistanceBetweenStations(trainStationService);
 //      findNearestStationFrom(trainStationService);
