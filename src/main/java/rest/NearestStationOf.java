@@ -6,6 +6,7 @@ import service.TrainStationService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -14,6 +15,7 @@ public class NearestStationOf {
 
    @GET
    @Path("/nearest-station")
+   @Produces("text/html; charset=UTF-8")
    public Response findNearestStationOf(@QueryParam("latitude") double latitude,
                                         @QueryParam("longitude") double longitude) {
 
@@ -24,7 +26,7 @@ public class NearestStationOf {
 
       return Response
             .status(200)
-            .entity("Nom de la gare la plus proche : " + nearestTrainStation.getName() + "(" + nearestTrainStation.getId() + ")\n" +
+            .entity("Nom de la gare la plus proche : " + nearestTrainStation.getName() + " (" + nearestTrainStation.getId() + ")</br>" +
                   "Coordonnées GPS de la Gare : Latitude = " + nearestTrainStation.getCoordinates().getLatitude()
                   + "  Longitude = " + nearestTrainStation.getCoordinates().getLongitude())
             .build();

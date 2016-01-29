@@ -1,0 +1,14 @@
+75 Boulevard de Richelieu
+92500 Rueil-Malmaison
+48.869319, 2.186126
+
+
+48.899180, 2.410228
+
+9 Avenue de l'Armagnac
+32100 Condom
+43.954051, 0.362706
+
+D350
+51120 Saint-Quentin-le-Verger
+48.611761, 3.754109
