@@ -8,14 +8,14 @@ import javax.ws.rs.core.Response;
 public class HelloResource {
 
    @GET
-   @Path("/tome")
+   @Path("/toMe")
    @Produces(MediaType.TEXT_PLAIN)
    public String sayPlainTextHello() {
       return "Hello Stephanie";
    }
 
    @GET
-   @Path("/toeverybody")
+   @Path("/toAnybody")
    public Response sayHelloToName(@QueryParam("name") String name) {
       if (name.isEmpty())
          return Response
