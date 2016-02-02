@@ -1,12 +1,27 @@
 #!/usr/bin/env python
 
 from urllib2 import Request, urlopen, URLError
+from opencage.geocoder import OpenCageGeocode
+import json
 
-print ("Bonjour, ici vous pouvez rechercher la gare la plus proche d'une localisation GPS")
-latitude = raw_input("Entrer la latitude : ")
-longitude = raw_input("Entrer la longitude : ")
+key = '***REMOVED***'
+geocoder = OpenCageGeocode(key)
 
-request = Request("http://localhost:8080/restserver/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude)
+query = raw_input("Entrez l'adresse recherchee ici : ")
+result = geocoder.geocode(query, format='json',language='fr')
+
+latitude = str(result[0]['bounds']['northeast']['lat'])
+longitude = str(result[0]['bounds']['northeast']['lng'])
+
+#print ("Bonjour, ici vous pouvez rechercher la gare la plus proche d'une localisation GPS")
+#latitude = raw_input("Entrer la latitude : ")
+#longitude = raw_input("Entrer la longitude : ")
+
+print "Nous allons rechercher la Gare la plus proche de l'adresse : " + query
+url = "http://localhost:8080/restserver/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude
+
+print "URL : " + url
+request = Request(url)
 
 try:
 	response = urlopen(request)
