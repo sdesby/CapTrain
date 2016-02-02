@@ -10,17 +10,17 @@ geocoder = OpenCageGeocode(key)
 query = raw_input("Entrez l'adresse recherchee ici : ")
 result = geocoder.geocode(query, format='json',language='fr')
 
-latitude = str(result[0]['bounds']['northeast']['lat'])
-longitude = str(result[0]['bounds']['northeast']['lng'])
+latitude = str(result[0]['geometry']['lat'])
+longitude = str(result[0]['geometry']['lng'])
 
 #print ("Bonjour, ici vous pouvez rechercher la gare la plus proche d'une localisation GPS")
 #latitude = raw_input("Entrer la latitude : ")
 #longitude = raw_input("Entrer la longitude : ")
-
+print ""
+print ""
 print "Nous allons rechercher la Gare la plus proche de l'adresse : " + query
 url = "http://localhost:8080/restserver/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude
 
-print "URL : " + url
 request = Request(url)
 
 try:
