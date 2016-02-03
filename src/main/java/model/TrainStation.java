@@ -2,13 +2,42 @@ package model;
 
 import dao.TrainStationPOJO;
 
-public class TrainStation {
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(
+      name = "trainStation"
+)
+public class TrainStation {
+   @XmlElement(
+         name = "id",
+         required = true
+   )
    private final String id;
+   @XmlElement(
+         name = "name",
+         required = true
+   )
    private final String name;
+   @XmlElement(
+         name = "coordinates",
+         required = true
+   )
    private final Coordinates coordinates;
+   @XmlElement(
+         name = "id",
+         required = false
+   )
    private final String slug;
+   @XmlElement(
+         name = "country",
+         required = true
+   )
    private final String country;
+   @XmlElement(
+         name = "info",
+         required = false
+   )
    private final String info;
    private final boolean isSuggestable;
 
