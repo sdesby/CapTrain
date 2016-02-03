@@ -2,8 +2,24 @@
 
 from urllib2 import Request, urlopen, URLError
 from opencage.geocoder import OpenCageGeocode
+import xml.etree.ElementTree as ET
 import json
 
+#--------------------------------------------------#
+class TrainStation:
+		
+	def __init__(self, m_id, name, latitude, longitude):
+		self.m_id=m_id
+		self.prettyName=name
+		self.latitude=latitude
+		self.longitude=longitude
+
+	def _get_prettyName(self):
+		return self.prettyName
+
+	def _set_prettyName(self, name):
+		self.prettyName = name
+#--------------------------------------------------#
 key = '***REMOVED***'
 geocoder = OpenCageGeocode(key)
 
@@ -13,9 +29,6 @@ result = geocoder.geocode(query, format='json',language='fr')
 latitude = str(result[0]['geometry']['lat'])
 longitude = str(result[0]['geometry']['lng'])
 
-#print ("Bonjour, ici vous pouvez rechercher la gare la plus proche d'une localisation GPS")
-#latitude = raw_input("Entrer la latitude : ")
-#longitude = raw_input("Entrer la longitude : ")
 print ""
 print ""
 print "Nous allons rechercher la Gare la plus proche de l'adresse : " + query
@@ -25,7 +38,15 @@ request = Request(url)
 
 try:
 	response = urlopen(request)
-	nearestStation = response.read()
-	print nearestStation
+	stationRoot = ET.fromstring(response.read())
+	m_id = stationRoot.find("id").text
+	name = stationRoot.find("name").text
+	latitude = stationRoot.find("coordinates/latitude").text
+	longitude = stationRoot.find("coordinates/longitude").text
+	station = TrainStation(m_id, name, latitude, longitude)
+	
+	print "Nom de la Gare : " + station.prettyName
+	print "Coordonnees geographiques : " + station.latitude + ", " + station.longitude
+	
 except URLError, e:
 	print "Got an error :" , e
