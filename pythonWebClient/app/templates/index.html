@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block content %}
+      <h1>Hello!</h1>
+      <div id='introduction'>
+         In this site you can find the nearest train station from the given address
+      </div>
+      <form name="addressForm" action="" method="post">
+          {{ form.hidden_tag() }}
+          {{ form.address(size=80) }}
+          <input type='submit' value="Submit"/>
+      </form>
+{% endblock %}
