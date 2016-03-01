@@ -1,12 +1,17 @@
 {% extends "base_template.html" %}
 {% block content %}
       <h1>Hello!</h1>
-      <div id='introduction'>
+      <p>
          In this site you can find the nearest train station from the given address
-      </div>
+      </p>
       <form name="addressForm" action="" method="post">
           {{ form.hidden_tag() }}
           {{ form.address(size=80) }}
           <input type='submit' value="Submit"/>
       </form>
+	  <p>
+	  {% if error != ""%}
+		Error : {{error}}
+		{% endif %}
+	  </p>
 {% endblock %}
