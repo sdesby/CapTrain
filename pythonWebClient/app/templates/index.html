@@ -1,17 +1,39 @@
 {% extends "base_template.html" %}
 {% block content %}
-      <h1>Hello!</h1>
-      <p>
-         In this site you can find the nearest train station from the given address
-      </p>
-      <form name="addressForm" action="" method="post">
-          {{ form.hidden_tag() }}
-          {{ form.address(size=80) }}
-          <input type='submit' value="Submit"/>
-      </form>
-	  <p>
-	  {% if error != ""%}
+<div id="colonne1"></div>
+<div id="colonne2"></div>
+<div id="centre">
+	<div id="address">
+		<h1>Bienvenue</h1>
+		<p>
+		 Trouvez la gare la plus proche d'une adresse :
+		</p>
+		<form name="addressForm" action="" method="post">
+		  {{ form.hidden_tag() }}
+		  {{ form.address(size=80, value="Entrez une adresse") }}
+		  <input type='submit' value="Submit"/>
+		</form>
+		<p>
+		{% if error != ""%}
 		Error : {{error}}
 		{% endif %}
-	  </p>
+		</p>
+	</div>
+	<div id="result">
+		{% if address != "" %}
+			<h1>Résultat de votre recherche</h1>
+			<p>
+				Adresse : {{address}}
+				Gare la plus proche : {{station._get_prettyName()}}
+			</p>
+			<p>
+				Coordonnées GPS de la gare :
+			<ul>
+				<li>Latitude : {{station._get_latitude()}}
+				<li>Longitude : {{station._get_longitude()}}
+			</ul> 
+			</p>
+		{% endif %}
+	</div>
+</div>
 {% endblock %}
