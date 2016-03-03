@@ -70,16 +70,4 @@ public class TrainStationService {
       System.out.println("Distance de votre position à cette gare : " + shorterDistance);
       return trainStation;
    }
-
-   private double findTheShortest(double[] shorterDistance) {
-      int indice = 0;
-      double current;
-      current = shorterDistance[0];
-      for (int i = 1; i < shorterDistance.length - 1; i++) {
-         if (current > shorterDistance[i]) {
-            indice = i + 1;
-         }
-      }
-      return shorterDistance[indice];
-   }
 }

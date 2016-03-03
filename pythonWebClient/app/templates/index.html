@@ -13,18 +13,21 @@
 		  {{ form.address(size=80, value="Entrez une adresse") }}
 		  <input type='submit' value="Submit"/>
 		</form>
-		<p>
 		{% if error != ""%}
-		Error : {{error}}
+			<div id="error">
+				Erreur : {{error}}
+			</div>
 		{% endif %}
-		</p>
 	</div>
+	{% if address != "" and station != None %}
 	<div id="result">
-		{% if address != "" %}
+		
 			<h1>Résultat de votre recherche</h1>
 			<p>
-				Adresse : {{address}}
 				Gare la plus proche : {{station._get_prettyName()}}
+				 </br>
+				 </br>
+				Votre adresse : {{address}}
 			</p>
 			<p>
 				Coordonnées GPS de la gare :
@@ -33,7 +36,7 @@
 				<li>Longitude : {{station._get_longitude()}}
 			</ul> 
 			</p>
-		{% endif %}
 	</div>
+	{% endif %}
 </div>
 {% endblock %}

@@ -15,9 +15,6 @@ public class TrainStationPOJO {
 
    private String is_suggestable;
 
-   public TrainStationPOJO() {
-   }
-
    public TrainStationPOJO(String id, String name, String slug, String longitude, String latitude, String country, String info, String is_suggestable) {
       this.id = id;
       this.name = name;

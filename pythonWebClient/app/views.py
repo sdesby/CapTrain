@@ -13,5 +13,9 @@ def index():
 		address=form.address.data
 		geocoder = Geocode()
 		station = geocoder.getNearestStation(address)
-		return render_template('index.html', title='Nearest station', form=form, address=address, station=station, error="")	
+		if isinstance(station, str):
+			error = station
+			return render_template('index.html', title='Nearest station', form=form, address=address, station=None, error=error)	
+		else:
+			return render_template('index.html', title='Nearest station', form=form, address=address, station=station, error="")	
 	return render_template('index.html', title='Nearest station', form=form, address="", station="", error="")

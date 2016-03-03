@@ -1,14 +1,10 @@
 body {
 	background-color: #F5E5D3;
+	font-family: Verdana;
 }
 
 h1 {
 	font-size: 24px;
-	font-family: Verdana;
-}
-
-p {
- font-family: Verdana;
 }
 
 div#colonne1{
@@ -29,6 +25,13 @@ div#centre{
     margin-right: 325px;
 }
 
+div#error{
+	color: red;
+	font-size: 18px;
+	text-decoration: bold;
+	margin-top: 20px;
+}
+
 div#address {
 	text-align: center;
 }
@@ -36,6 +39,7 @@ div#address {
 div#result {
 	border: 2px solid black;
 	text-align: left;
+	margin-top: 30px;
 }
 
 div#result ul {

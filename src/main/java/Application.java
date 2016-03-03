@@ -13,6 +13,7 @@ public class Application {
       return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), resourceConfig);
    }
 
+   @Deprecated
    public static void main(String[] args) {
 
       //Start REST API Server
