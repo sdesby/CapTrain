@@ -20,7 +20,7 @@ class TrainStation:
 	def _set_prettyName(self, name):
 		self.prettyName = name
 #--------------------------------------------------#
-key = '***REMOVED***'
+key = 'Insert token here'
 geocoder = OpenCageGeocode(key)
 
 query = raw_input("Entrez l'adresse recherchee ici : ")

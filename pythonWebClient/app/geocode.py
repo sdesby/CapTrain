@@ -7,7 +7,7 @@ from .models import TrainStation
 class Geocode:
 	
 	def __init__(self):
-		key = '***REMOVED***'
+		key = 'Insert token here!'
 		self.geocoder = OpenCageGeocode(key)
 
 	
