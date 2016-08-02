@@ -6,7 +6,7 @@
 	<div id="address">
 		<h1>Bienvenue</h1>
 		<p>
-		 Trouvez la gare la plus proche d'une adresse :
+		 Trouvez la gare la plus proche :
 		</p>
 		<form name="addressForm" action="" method="post">
 		  {{ form.hidden_tag() }}
@@ -21,10 +21,19 @@
 	</div>
 	{% if address != "" and station != None %}
 	<div id="result">
-		
+
 			<h1>Résultat de votre recherche</h1>
 			<p>
 				Gare la plus proche : {{station._get_prettyName()}}
+				 </br>
+				 Adresse :
+			 	</br>
+				<ul>
+					<li>Code postal : {{station._get_postal_code()}}</li>
+					<li>Ville : {{station._get_city()}}</li>
+					<li>Départment : {{station._get_department()}}</li>
+					<li>Région : {{station._get_region()}}</li>
+				</ul>
 				 </br>
 				 </br>
 				Votre adresse : {{address}}
@@ -32,9 +41,9 @@
 			<p>
 				Coordonnées GPS de la gare :
 			<ul>
-				<li>Latitude : {{station._get_latitude()}}
-				<li>Longitude : {{station._get_longitude()}}
-			</ul> 
+				<li>Latitude : {{station._get_latitude()}}</li>
+				<li>Longitude : {{station._get_longitude()}}</li>
+			</ul>
 			</p>
 	</div>
 	{% endif %}
