@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 public class TrainStationService {
 
-   private static final String TRAIN_STATION_COLLECTION = "train_stations";
+   private static final String TRAIN_STATION_COLLECTION = "trainStation";
    private final OperationsProvider operationsProvider;
 
    public TrainStationService() {
@@ -26,7 +26,7 @@ public class TrainStationService {
 
       List<TrainStation> trainStations = new ArrayList<TrainStation>();
       trainStationPOJOs.forEach(i -> {
-               trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
+               trainStations.add(new TrainStation(i.getId(), i.getName(), i.getHowbig(), i.getLatitude(), i.getLongitude(), i.getPostalCode(), i.getCity(), i.getDepartment(), i.getRegion()));
             }
       );
       return trainStations;
@@ -37,7 +37,7 @@ public class TrainStationService {
       try {
          List<TrainStationPOJO> trainStationPOJOs = operationsProvider.getMongoOps().find(new Query(Criteria.where("name").is(stationName)), TrainStationPOJO.class, TRAIN_STATION_COLLECTION);
          trainStationPOJOs.forEach(i -> {
-                  trainStations.add(new TrainStation(i.getId(), i.getName(), i.getLatitude(), i.getLongitude(), i.getSlug(), i.getCountry(), i.getInfo(), i.getIs_suggestable()));
+                  trainStations.add(new TrainStation(i.getId(), i.getName(), i.getHowbig(), i.getLatitude(), i.getLongitude(), i.getPostalCode(), i.getCity(), i.getDepartment(), i.getRegion()));
                }
          );
       } catch (Exception e) {
@@ -62,7 +62,7 @@ public class TrainStationService {
          currentStation = i.next();
          currentDistance = DistanceCalculator.getDistance(userCoordinates, currentStation.getCoordinates());
 
-         if (currentDistance < shorterDistance && currentStation.isSuggestable()) {
+         if (currentDistance < shorterDistance) {
             shorterDistance = currentDistance;
             trainStation = currentStation;
          }

@@ -7,7 +7,7 @@ import com.mongodb.MongoClient;
 
 public class OperationsProvider {
 
-   private static final String DB_NAME = "trainStation";
+   private static final String DB_NAME = "nearestTrainStation";
    private static final String MONGO_HOST = "localhost";
    private static final int MONGO_PORT = 27017;
 

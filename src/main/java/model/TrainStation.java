@@ -19,70 +19,72 @@ public class TrainStation {
          required = true
    )
    private final String name;
+
+   @XmlElement(
+         name = "howbig",
+         required = true
+   )
+   private final String howbig;
+
    @XmlElement(
          name = "coordinates",
          required = true
    )
    private final Coordinates coordinates;
    @XmlElement(
-         name = "id",
-         required = false
-   )
-   private final String slug;
-   @XmlElement(
-         name = "country",
+         name = "postalCode",
          required = true
    )
-   private final String country;
+   private final String postalCode;
    @XmlElement(
-         name = "info",
-         required = false
+         name = "city",
+         required = true
    )
-   private final String info;
-   private final boolean isSuggestable;
+   private final String city;
+
+   @XmlElement(
+         name = "department",
+         required = true
+   )
+   private final String department;
+
+   @XmlElement(
+         name = "region",
+         required = true
+   )
+   private final String region;
 
    public TrainStation() {
       this.id = "";
       this.name = "";
-      this.slug = "";
+      this.howbig = "";
       this.coordinates = new Coordinates(0.0, 0.0);
-      this.country = "";
-      this.info = "";
-      this.isSuggestable = false;
+      this.postalCode = "";
+      this.city = "";
+      this.department = "";
+      this.region = "";
    }
 
    public TrainStation(TrainStationPOJO trainStationPOJO) {
       this.id = trainStationPOJO.getId();
       this.name = trainStationPOJO.getName();
+      this.howbig = trainStationPOJO.getHowbig();
       this.coordinates = new Coordinates(trainStationPOJO.getLatitude(), trainStationPOJO.getLongitude());
-      this.slug = trainStationPOJO.getSlug();
-      this.country = trainStationPOJO.getCountry();
-      this.info = trainStationPOJO.getInfo();
-
-      if (trainStationPOJO.getIs_suggestable().equals("t")) {
-         this.isSuggestable = true;
-      } else if (trainStationPOJO.getIs_suggestable().equals("f")) {
-         this.isSuggestable = false;
-      } else {
-         this.isSuggestable = false;
-      }
+      this.postalCode = trainStationPOJO.getPostalCode();
+      this.city = trainStationPOJO.getCity();
+      this.department = trainStationPOJO.getDepartment();
+      this.region = trainStationPOJO.getRegion();
    }
 
-   public TrainStation(String id, String name, String latitude, String longitude, String slug, String country, String info, String isSuggestable) {
+   public TrainStation(String id, String name, String howbig, String latitude, String longitude, String postalCode, String city, String department, String region) {
       this.id = id;
       this.name = name;
-      this.slug = slug;
+      this.howbig = howbig;
       this.coordinates = new Coordinates(latitude, longitude);
-      this.country = country;
-      this.info = info;
-
-      if (isSuggestable.equals("t")) {
-         this.isSuggestable = true;
-      } else if (isSuggestable.equals("f")) {
-         this.isSuggestable = false;
-      } else {
-         this.isSuggestable = false;
-      }
+      this.postalCode = postalCode;
+      this.city = city;
+      this.department = department;
+      this.region = region;
    }
 
    public String getId() {
@@ -97,26 +99,36 @@ public class TrainStation {
       return coordinates;
    }
 
-   public String getSlug() {
-      return slug;
+   public String getHowbig() {
+      return howbig;
    }
 
-   public String getCountry() {
-      return country;
+   public String getPostalCode() {
+      return postalCode;
    }
 
-   public String getInfo() {
-      return info;
+   public String getCity() {
+      return city;
    }
 
-   public boolean isSuggestable() {
-      return isSuggestable;
+   public String getDepartment() {
+      return department;
+   }
+
+   public String getRegion() {
+      return region;
    }
 
    @Override
    public String toString() {
-      return String.format(
-            "model.TrainStation[id=%s, name='%s', slug='%s', coordinates.latitude='%s', coordinates.longitude='%s', country='%s', info='%s', isSuggestable='%s']",
-            id, name, slug, coordinates.getLatitude(), coordinates.getLongitude(), country, info, isSuggestable);
+      return "TrainStation{" +
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", howbig='" + howbig + '\'' +
+            ", coordinates=" + coordinates +
+            ", city='" + city + '\'' +
+            ", department='" + department + '\'' +
+            ", region='" + region + '\'' +
+            '}';
    }
 }

@@ -3,51 +3,33 @@ package dao;
 public class TrainStationPOJO {
 
    private String id;
-
    private String name;
-   private String slug;
-
-   private String longitude;
-
+   private String howbig;
    private String latitude;
-   private String country;
-   private String info;
+   private String longitude;
+   private String postalCode;
+   private String city;
+   private String department;
+   private String region;
 
-   private String is_suggestable;
-
-   public TrainStationPOJO(String id, String name, String slug, String longitude, String latitude, String country, String info, String is_suggestable) {
+   public TrainStationPOJO(String id, String name, String howbig, String longitude, String latitude, String postalCode, String city, String department, String region) {
       this.id = id;
       this.name = name;
-      this.slug = slug;
+      this.howbig = howbig;
       this.longitude = longitude;
       this.latitude = latitude;
-      this.country = country;
-      this.info = info;
-      this.is_suggestable = is_suggestable;
+      this.postalCode = postalCode;
+      this.city = city;
+      this.department = department;
+      this.region = region;
    }
 
    public String getId() {
       return id;
    }
 
-   public String getIs_suggestable() {
-      return is_suggestable;
-   }
-
    public String getName() {
       return name;
-   }
-
-   public String getSlug() {
-      return slug;
-   }
-
-   public String getCountry() {
-      return country;
-   }
-
-   public String getInfo() {
-      return info;
    }
 
    public String getLongitude() {
@@ -56,5 +38,25 @@ public class TrainStationPOJO {
 
    public String getLatitude() {
       return latitude;
+   }
+
+   public String getCity() {
+      return city;
+   }
+
+   public String getDepartment() {
+      return department;
+   }
+
+   public String getHowbig() {
+      return howbig;
+   }
+
+   public String getPostalCode() {
+      return postalCode;
+   }
+
+   public String getRegion() {
+      return region;
    }
 }
