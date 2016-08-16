@@ -20,23 +20,21 @@
 		{% endif %}
 	</div>
 	{% if address != "" and station != None %}
-	<div id="result">
+	<div id="result-block">
 
 			<h1>Résultat de votre recherche</h1>
+			<strong>Adresse renseignée :</strong> {{address}}
+			{% for station in stations %}
+			<div class="result">
 			<p>
-				Gare la plus proche : {{station._get_prettyName()}}
+				Gare : <strong>{{station._get_prettyName()}}</strong>
 				 </br>
-				 Adresse :
-			 	</br>
 				<ul>
 					<li>Code postal : {{station._get_postal_code()}}</li>
 					<li>Ville : {{station._get_city()}}</li>
 					<li>Départment : {{station._get_department()}}</li>
 					<li>Région : {{station._get_region()}}</li>
 				</ul>
-				 </br>
-				 </br>
-				Votre adresse : {{address}}
 			</p>
 			<p>
 				Coordonnées GPS de la gare :
@@ -45,6 +43,8 @@
 				<li>Longitude : {{station._get_longitude()}}</li>
 			</ul>
 			</p>
+		</div>
+			{% endfor %}
 	</div>
 	{% endif %}
 </div>

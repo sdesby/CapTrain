@@ -12,10 +12,10 @@ def index():
 	if form.validate_on_submit():
 		address=form.address.data
 		geocoder = Geocode()
-		station = geocoder.getNearestStation(address)
-		if isinstance(station, str):
-			error = station
-			return render_template('index.html', title='Nearest station', form=form, address=address, station=None, error=error)	
+		stations_list = geocoder.getNearestStation(address)
+		if isinstance(stations_list, str):
+			error = stations_list
+			return render_template('index.html', title='Nearest station', form=form, address=address, stations=None, error=error)
 		else:
-			return render_template('index.html', title='Nearest station', form=form, address=address, station=station, error="")	
-	return render_template('index.html', title='Nearest station', form=form, address="", station="", error="")
+			return render_template('index.html', title='Nearest station', form=form, address=address, stations=stations_list, error="")
+	return render_template('index.html', title='Nearest station', form=form, address="", stations="", error="")

@@ -12,7 +12,7 @@ div#colonne1{
 	width: 320px;
 	height:1000px;
 	}
-	
+
 div#colonne2{
 	float:right;
 	width: 320px;
@@ -36,14 +36,13 @@ div#address {
 	text-align: center;
 }
 
-div#result {
+div .result {
 	border: 2px solid black;
 	text-align: left;
 	margin-top: 30px;
+	padding: 5px;
 }
 
-div#result ul {
+div .result ul {
 	list-style-position: inside;
 }
-
-

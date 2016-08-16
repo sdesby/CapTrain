@@ -19,29 +19,33 @@ class Geocode:
 		else:
 			print "*------ Result : "
 			print result
+			print "----------------*"
 			latitude = str(result[0]['geometry']['lat'])
-			print latitude
+			print "Latitude : " + latitude
 			longitude = str(result[0]['geometry']['lng'])
-			print longitude
+			print "Longitude : " +longitude
 			url = "http://localhost:8080/restserver/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude
 			print url
 			request = Request(url)
 
 			try:
 				response = urlopen(request)
-				stationRoot = ET.fromstring(response.read())
-				m_id = stationRoot.find("id").text
-				name = stationRoot.find("name").text
-				howbig = stationRoot.find("howbig").text
-				latitude = stationRoot.find("coordinates/latitude").text
-				longitude = stationRoot.find("coordinates/longitude").text
-				postal_code = stationRoot.find("postalCode").text
-				city = stationRoot.find("city").text
-				department = stationRoot.find("department").text
-				region =stationRoot.find("region").text
-				station = TrainStation()
-				station.initialize(m_id, name, howbig, latitude, longitude, postal_code, city, department, region)
-				return station
+				stations_list = []
+				station_root = ET.fromstring(response.read())
+				for child in station_root:
+					m_id = child.find("id").text
+					name = child.find("name").text
+					howbig = child.find("howbig").text
+					latitude = child.find("coordinates/latitude").text
+					longitude = child.find("coordinates/longitude").text
+					postal_code = child.find("postalCode").text
+					city = child.find("city").text
+					department = child.find("department").text
+					region = child.find("region").text
+					station = TrainStation()
+					station.initialize(m_id, name, howbig, latitude, longitude, postal_code, city, department, region)
+					stations_list.append(station);
+				return stations_list
 
 			except URLError, e:
 				print "Erreur lors de la communication avec le service distant :" , e
