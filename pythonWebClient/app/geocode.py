@@ -2,13 +2,16 @@ from urllib2 import Request, urlopen, URLError
 from opencage.geocoder import OpenCageGeocode
 import xml.etree.ElementTree as ET
 import json
+from .utils.MyConfigParser import MyConfigParser
 from .models import TrainStation
+
+config_parser = MyConfigParser()
+BASE_URL = config_parser.ConfigSectionMap("NTS")["baseurl"]
 
 class Geocode:
 
 	def __init__(self):
-		key = 'Insert token here!'
-		self.geocoder = OpenCageGeocode('995f38d3b781b46526e1b3fd7e9a78a7')
+		self.geocoder = OpenCageGeocode(config_parser.ConfigSectionMap("OpenCageGeocode")["key"])
 
 
 	def getNearestStation(self, address):
@@ -24,7 +27,7 @@ class Geocode:
 			print "Latitude : " + latitude
 			longitude = str(result[0]['geometry']['lng'])
 			print "Longitude : " +longitude
-			url = "http://localhost:8080/restserver/station/nearest-station?latitude=" + latitude + "&longitude=" + longitude
+			url = BASE_URL + "?latitude=" + latitude + "&longitude=" + longitude
 			print url
 			request = Request(url)
 
